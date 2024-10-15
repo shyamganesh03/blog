@@ -50,6 +50,8 @@ Next, I created a blog details screen and integrated it with the blog listing sc
 
 When navigating back to the listing screen, I clear the sessionStorage, as the stored data is no longer needed. This approach helps maintain optimal performance by preventing unnecessary data accumulation in the browser's storage.
 
+Finally, I have implemented a mode toggle feature on my blog site, allowing users to switch between light and dark themes. The default theme is set based on the system preferences, leveraging Next.js for seamless integration.
+
 ## Code Review
 
 I received the following code via email:
