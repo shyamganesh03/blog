@@ -3,32 +3,50 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
 const BlogContext = createContext<{
-  posts: any[];
-  addPost: any;
+  addPost: (post: any) => void;
   addComment: any;
+  getPosts: any;
+  posts: any;
 }>({
-  posts: [],
   addPost: () => {},
   addComment: () => {},
+  getPosts: () => {},
+  posts: [],
 });
-export const BlogProvider = ({ children }: { children: any }) => {
-  const [posts, setPosts] = useState<any>([]);
+
+export const BlogProvider = ({ children }: { children: React.ReactNode }) => {
+  const [posts, setPosts] = useState<any[]>(() => {
+    const storedPosts = sessionStorage.getItem("posts");
+    return storedPosts ? JSON.parse(storedPosts) : [];
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
 
   const addPost = (post: any) => {
-    setPosts([...posts, post]);
+    setPosts((prevPosts) => [...prevPosts, post]);
   };
 
-  const addComment = (postId: number, comment: string) => {
-    const updatedPosts = posts.map((post: any) =>
-      post.id === postId
-        ? { ...post, comments: [...post.comments, comment] }
-        : post
+  const addComment = (postId: string, comment: any) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id == postId
+          ? {
+              ...post,
+              comments: post.comments ? [...post.comments, comment] : [comment],
+            }
+          : post
+      )
     );
-    setPosts(updatedPosts);
+  };
+
+  const getPosts = (postId: string) => {
+    return posts.find((post) => post.id == postId);
   };
 
   return (
-    <BlogContext.Provider value={{ posts, addPost, addComment }}>
+    <BlogContext.Provider value={{ addPost, addComment, getPosts, posts }}>
       {children}
     </BlogContext.Provider>
   );

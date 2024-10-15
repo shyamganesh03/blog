@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { BlogProvider } from "@/store/blogs";
+import { Label } from "@/components/ui/label";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,7 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <BlogProvider blogs={[]}>{children}</BlogProvider>
+          <BlogProvider>{children}</BlogProvider>
         </ThemeProvider>
       </body>
     </html>
