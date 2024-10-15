@@ -8,6 +8,7 @@ import { Card } from "../ui/card";
 import { NotebookPenIcon } from "lucide-react";
 import { useBlogContext } from "@/store/blogs";
 import Loader from "../ui/loader";
+import { ModeToggle } from "../ui/theme-toogle";
 
 const BlogListing = ({ blogData = [] }: { blogData: any[] }) => {
   const { addPost } = useBlogContext();
@@ -23,6 +24,7 @@ const BlogListing = ({ blogData = [] }: { blogData: any[] }) => {
   }, [blogData]);
 
   useEffect(() => {
+    sessionStorage.clear();
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop >=
@@ -60,9 +62,11 @@ const BlogListing = ({ blogData = [] }: { blogData: any[] }) => {
 
   return (
     <div className='bg-background'>
-      <header className='px-8 py-4 bg-background w-full border-b sticky top-0 z-40'>
-        <Label className='text-md font-semibold'> Blog Detail</Label>
+      <header className='px-8 py-4 bg-background w-full border-b sticky top-0 z-40 flex justify-between items-center'>
+        <Label className='text-md font-semibold'>Blog Detail</Label>
+        <ModeToggle />
       </header>
+
       <div className='grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8 py-4 px-4 md:px-8'>
         {displayedBlogs.map((blog) => (
           <Card

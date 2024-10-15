@@ -16,12 +16,16 @@ const BlogContext = createContext<{
 
 export const BlogProvider = ({ children }: { children: React.ReactNode }) => {
   const [posts, setPosts] = useState<any[]>(() => {
-    const storedPosts = sessionStorage.getItem("posts");
-    return storedPosts ? JSON.parse(storedPosts) : [];
+    if (typeof window !== "undefined") {
+      const storedPosts = sessionStorage.getItem("posts");
+      return storedPosts ? JSON.parse(storedPosts) : [];
+    }
   });
 
   useEffect(() => {
-    sessionStorage.setItem("posts", JSON.stringify(posts));
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("posts", JSON.stringify(posts));
+    }
   }, [posts]);
 
   const addPost = (post: any) => {

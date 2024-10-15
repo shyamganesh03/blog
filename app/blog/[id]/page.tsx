@@ -1,5 +1,4 @@
 import BlogDetails from "@/components/blogs/BlogDetails";
-import { useBlogContext } from "@/store/blogs";
 import React from "react";
 
 const BlogDetailsPage = async ({ params }: { params: any }) => {
