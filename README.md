@@ -137,7 +137,7 @@ const [posts, setPosts] = useState<any[]>(() => {
 - This initializes the `posts` state. It checks if the code is running in the browser (to avoid errors during server-side rendering).
 - It retrieves any previously stored posts from `sessionStorage` and parses them. If there are no stored posts, it initializes `posts` as an empty array.
 
-### 5. **Effect Hook for Synchronization**
+### 5. **UseEffect Hook for Synchronization**
 
 ```javascript
 useEffect(() => {
